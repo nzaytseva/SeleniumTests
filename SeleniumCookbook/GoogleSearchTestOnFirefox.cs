@@ -31,8 +31,7 @@ namespace SeleniumCookbook
             }
            catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
             {
-              
-                
+                Console.Out.WriteLine("The element not found!")
             }
   
         }
