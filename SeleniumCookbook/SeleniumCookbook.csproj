@@ -59,15 +59,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GoogleSearchTestOnFirefox.cs" />
-    <Compile Include="GoogleSearchTestOnIE.cs" />
+    <Compile Include="TestOnFirefox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Drivers\IEDriverServer.exe" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
