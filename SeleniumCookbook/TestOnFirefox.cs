@@ -31,18 +31,85 @@ namespace SeleniumCookbook
                 FirefoxWebElement whenDate = (FirefoxWebElement)_driver.FindElement(OpenQA.Selenium.By.Id(id));
                 whenDate.Click();
             }
-           catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
+            catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
             {
                 Debug.Print("The element with id {0} not found!", id);
             }
         }
 
-        /*
         [TestMethod]
-          public void FindElementByXPath()
+        public void FindChangeCityButtonByXPath()
+        {
+            // xPath of "change city" button
+            //   string xPath = "html/body/main/div[1]/h2/button";
+            // xPath of "find station" field
+            string xPath = "//input[@name='query autocomplete']";
+
+            try
+            {
+                FirefoxWebElement changeCityButton = (FirefoxWebElement)_driver.FindElementByXPath(xPath);
+                changeCityButton.Click();
+                //  FindNewCity();
+                // получить атрибут form кнопки 
+            }
+            catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
+            {
+                Debug.Print("The element on xPath {0} not found!", xPath);
+            }
+        }
+
+        [TestMethod]
+        public void FindDepartureByCssSelector()
+        {
+            string cssSelector = "html/body/div[1]/header/div[3]/div[2]/form/div[1]/div/span/input[1]";
+            string departureName = "Калуга";
+            try
+            {
+                FirefoxWebElement departure = (FirefoxWebElement)_driver.FindElementByCssSelector(cssSelector);
+                departure.SendKeys(departureName);
+            }
+            catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
+            {
+                Debug.Print("The element on cssSelector {0} not found!", cssSelector);
+            }
+        }
+            
+
+        [TestMethod]
+        public void FindStationFieldByXPath()
+        {
+            // xPath of "find station" field
+            string xPath = "//input[@name='query']";
+
+            try
+            {
+                FirefoxWebElement findStationField = (FirefoxWebElement)_driver.FindElementByXPath(xPath);
+                findStationField.SendKeys("кокошкино");
+            }
+            catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
+            {
+                Debug.Print("The element on xPath {0} not found!", xPath);
+            }
+        }
+
+        /*  [TestMethod]
+          public void FindNewCity()
           {
-          }
-          */
+              // xPath request field
+              string xPath = "html/body/main/div[1]/h2/button";
+              string request = "Калуга";
+
+              try
+              {
+                  FirefoxWebElement requestField = (FirefoxWebElement)_driver.FindElementByXPath(xPath);
+                  requestField.SendKeys(request);
+
+              }
+              catch (OpenQA.Selenium.NoSuchElementException noSuchElementException)
+              {
+                  Debug.Print("The element on xPath {0} not found!", xPath);
+              }
+          }*/
 
         [TestMethod]
         public void FindElementsByTagName()
