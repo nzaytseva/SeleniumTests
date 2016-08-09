@@ -59,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Task.cs" />
     <Compile Include="TestOnFirefox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
