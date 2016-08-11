@@ -65,14 +65,16 @@ namespace SeleniumCookbook
         [TestMethod]
         public void FindSchedule()
         {
-            string requestedDeparture = "Калуга";
+            string requestedDeparture = "калуга";
             string requestedArrival = "Москва";
             //string requestedDate = "13.08.2016";
             try
             {
                 FirefoxWebElement departureField = GetDepartureField();
                 departureField.Clear();
-                departureField.SendKeys(requestedDeparture);
+                departureField.SendKeys(OpenQA.Selenium.Keys.Shift + requestedDeparture);
+                
+                //Debug.Print(departureField.GetAttribute("class"));
 
                 FirefoxWebElement arrivalField = GetArrivalField();
                 arrivalField.Clear();
@@ -88,7 +90,9 @@ namespace SeleniumCookbook
                 suburbanLabel.Click();
 
                 FirefoxWebElement tomorrowButton = GetTomorrowButton();
+                //Debug.Print(tomorrowButton.Displayed.ToString());
                 tomorrowButton.Click();
+                Assert.AreEqual("завтра", tomorrowButton.Text);
 
                 FirefoxWebElement searchButton = GetSearchButton();
                 searchButton.Click();
