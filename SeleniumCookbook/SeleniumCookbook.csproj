@@ -59,18 +59,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AutomatingElements.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TestOnFirefox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TaskText.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
