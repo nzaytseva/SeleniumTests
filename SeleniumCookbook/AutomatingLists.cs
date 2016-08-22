@@ -5,11 +5,10 @@ using OpenQA.Selenium.Support.UI;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-
 namespace SeleniumCookbook
 {
     [TestClass]
-    public class AutomatingElements
+    public class AutomatingLists
     {
         string _url = "http://kalugahouse.ru/catalog/appartments/prodazha/";
         FirefoxDriver _driver;
@@ -74,6 +73,12 @@ namespace SeleniumCookbook
 
             // совпадают ли фактические элементы с ожидаемыми
             CollectionAssert.AreEqual(actualValues, expectedValues);
+        }
+
+        [TestCleanup]
+        public void CloseBrowser()
+        {
+            _driver.Close();
         }
     }
 }

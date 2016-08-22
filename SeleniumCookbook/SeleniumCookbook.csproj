@@ -59,7 +59,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AutomatingElements.cs" />
+    <Compile Include="AutomatingLists.cs" />
+    <Compile Include="AutomatingRadioButtons.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TestOnFirefox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
