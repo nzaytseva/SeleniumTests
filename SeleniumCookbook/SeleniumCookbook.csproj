@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AutomatingLists.cs" />
     <Compile Include="AutomatingRadioButtons.cs" />
+    <Compile Include="StudyingActions.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TestOnFirefox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
