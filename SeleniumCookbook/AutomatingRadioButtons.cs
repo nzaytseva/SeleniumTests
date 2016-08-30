@@ -24,7 +24,10 @@ namespace SeleniumCookbook
             string formId = "calc3";
             string formName = "msje_calc";
 
-            _driver = new FirefoxDriver();
+            FirefoxBinary firefoxBinary = new FirefoxBinary("C:\\program files\\Mozilla Firefox\\firefox.exe");
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            _driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+          //  _driver = new FirefoxDriver();
             _driver.Navigate().GoToUrl(_url);         
             _calculatorForm = (FirefoxWebElement)_driver.FindElementById(formId);
             // проверить, что это действительно нужный нам калькулятор

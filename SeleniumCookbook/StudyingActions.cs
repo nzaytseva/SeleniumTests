@@ -8,6 +8,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System.Diagnostics;
+using System.IO;
 
 namespace SeleniumCookbook
 {
@@ -20,7 +21,10 @@ namespace SeleniumCookbook
         [TestInitialize]
         public void GoToUrl()
         {
-            _driver = new FirefoxDriver();
+            FirefoxBinary firefoxBinary = new FirefoxBinary("C:\\program files\\Mozilla Firefox\\firefox.exe");
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            _driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+            //  _driver = new FirefoxDriver(new FirefoxBinary(), new FirefoxProfile(), TimeSpan.FromSeconds(180));
             _driver.Navigate().GoToUrl(_url);
         }
 
@@ -44,14 +48,23 @@ namespace SeleniumCookbook
             string text = "кбжу";
             string searchStringId = "s";
             string searchStringName = "s";
-
+            int x = 0, y = 0;
             FirefoxWebElement searchString = (FirefoxWebElement)_driver.FindElementById(searchStringId);
             Assert.AreEqual(searchString.GetAttribute("name"), searchStringName);
 
-            searchString.SendKeys(OpenQA.Selenium.Keys.Shift + text + OpenQA.Selenium.Keys.Enter);
+            Actions builder = new Actions(_driver);
+            x = searchString.Location.X + 1;
+            y = searchString.Location.Y + 1;
+
+            builder.MoveByOffset(x, y).Click();
+            builder.Perform();
+            Debug.Print("x: {0}, y: {1}", x, y);
+            //  searchString.SendKeys(OpenQA.Selenium.Keys.Shift + text + OpenQA.Selenium.Keys.Enter);
         }
 
-           
-        
+        public void MoveMousePointer(int x, int y)
+        {
+
+        }
     }
 }

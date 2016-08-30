@@ -17,7 +17,10 @@ namespace SeleniumCookbook
         [TestInitialize]
         public void TestSetup()
         {
-            _driver = new FirefoxDriver();
+            FirefoxBinary firefoxBinary = new FirefoxBinary("C:\\program files\\Mozilla Firefox\\firefox.exe");
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            _driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
+            //_driver = new FirefoxDriver();
             _driver.Navigate().GoToUrl(_url);
         }
 
