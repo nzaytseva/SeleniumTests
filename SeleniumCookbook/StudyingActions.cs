@@ -26,6 +26,7 @@ namespace SeleniumCookbook
             _driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
             //  _driver = new FirefoxDriver(new FirefoxBinary(), new FirefoxProfile(), TimeSpan.FromSeconds(180));
             _driver.Navigate().GoToUrl(_url);
+            _driver.Manage().Window.Maximize();
         }
 
        /* [TestMethod]
@@ -43,7 +44,7 @@ namespace SeleniumCookbook
         }
         */
         [TestMethod]
-        public void PrintTextInUpperCase()
+        public void PerformMouseActions()
         {
             string text = "кбжу";
             string searchStringId = "s";
@@ -56,15 +57,18 @@ namespace SeleniumCookbook
             x = searchString.Location.X + 1;
             y = searchString.Location.Y + 1;
 
-            builder.MoveByOffset(x, y).Click();
-            builder.Perform();
+            builder
+                //.MoveByOffset(x, y)
+                .Click(searchString)
+                .ContextClick(searchString)
+                //.KeyDown(OpenQA.Selenium.Keys.Shift)
+               // .SendKeys(text)
+               // .KeyUp(OpenQA.Selenium.Keys.Shift)
+                .Perform();
             Debug.Print("x: {0}, y: {1}", x, y);
-            //  searchString.SendKeys(OpenQA.Selenium.Keys.Shift + text + OpenQA.Selenium.Keys.Enter);
-        }
 
-        public void MoveMousePointer(int x, int y)
-        {
 
+            searchString.SendKeys(OpenQA.Selenium.Keys.Shift + text);
         }
     }
 }
