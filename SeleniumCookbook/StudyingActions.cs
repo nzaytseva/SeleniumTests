@@ -26,7 +26,8 @@ namespace SeleniumCookbook
             _driver = new FirefoxDriver(firefoxBinary, firefoxProfile);
             //  _driver = new FirefoxDriver(new FirefoxBinary(), new FirefoxProfile(), TimeSpan.FromSeconds(180));
             _driver.Navigate().GoToUrl(_url);
-            _driver.Manage().Window.Maximize();
+            _driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+            _driver.Manage().Window.Maximize();              
         }
 
        /* [TestMethod]
@@ -50,7 +51,11 @@ namespace SeleniumCookbook
             string searchStringId = "s";
             string searchStringName = "s";
             int x = 0, y = 0;
+            double timeout = 20000;
+
             FirefoxWebElement searchString = (FirefoxWebElement)_driver.FindElementById(searchStringId);
+            // FirefoxWebElement searchString = new WebDriverWait(_driver, TimeSpan.FromSeconds(timeout).Until(ExpectedConditions.ElementExists(OpenQA.Selenium.By.Id(searchStringId)));
+
             Assert.AreEqual(searchString.GetAttribute("name"), searchStringName);
 
             Actions builder = new Actions(_driver);
@@ -66,9 +71,29 @@ namespace SeleniumCookbook
                // .KeyUp(OpenQA.Selenium.Keys.Shift)
                 .Perform();
             Debug.Print("x: {0}, y: {1}", x, y);
-
-
+            
             searchString.SendKeys(OpenQA.Selenium.Keys.Shift + text);
+            _driver.Navigate().Back();
+            _driver.Navigate().Forward();
+            _driver.Navigate().Refresh();
+            
+        }
+
+        [TestMethod]
+        public void TestAlerts()
+        {
+            try
+            {
+                OpenQA.Selenium.IAlert alert = _driver.SwitchTo().Alert();
+            }
+            catch (OpenQA.Selenium.NoAlertPresentException message)
+            {
+                Debug.Print(message.Message);
+            }
+
+
+
+            
         }
     }
 }
