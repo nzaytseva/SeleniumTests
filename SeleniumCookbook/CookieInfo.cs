@@ -24,30 +24,34 @@ namespace SeleniumCookbook
         {
             InitializeDriver();
             driver.Navigate().GoToUrl(url);
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(OpenQA.Selenium.By.Id("usernameField")));
+
+
+            //   driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
 
             SelectElement list = new SelectElement(driver.FindElementByCssSelector("select"));
             list.SelectByIndex(0);
             driver.FindElementById("usernameField").SendKeys(login);
             driver.FindElementById("passwordField").SendKeys(password + OpenQA.Selenium.Keys.Enter);
+
+            WriteCookiesToFile(Directory.GetCurrentDirectory());
         }
 
         static void WriteCookiesToFile(string filePath)
         {
-            FileInfo fileWriter = new FileInfo(filePath);
-            fileWriter.Create();
-           // StreamWriter fileWriter = new StreamWriter(File.Create(filePath));
+            FileStream fileStream = File.Create(filePath);
+            StreamWriter streamWriter = new StreamWriter(fileStream);
 
-          //  if (fileWriter.)
-           // {
-                foreach (var cookie in driver.Manage().Cookies.AllCookies)
-                {
-                    //fileWriter.
-
-                }
-                //fileWriter
+            foreach (var cookie in driver.Manage().Cookies.AllCookies)
+            {
+                streamWriter.WriteLine(cookie.Name + ";" + cookie.Value + ";" + cookie.Domain +
+                    ";" + cookie.Path + ";" + cookie.Expiry + ";" + cookie.Secure);
             }
 
+            streamWriter.Flush();
+            streamWriter.Close();
+            fileStream.Close();
         }
     }
 }

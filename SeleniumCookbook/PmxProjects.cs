@@ -14,14 +14,19 @@ namespace SeleniumCookbook
     public class PmxProjects
     {
         FirefoxDriver driver;
-       
+        string url = "http://klgw-019.corepartners.local:10022/client/#/auth/logon";
 
         [TestInitialize]
         public void GoToUrl()
         {
             CookieInfo.PmxAuthorize("admin", "7777777");
 
+           /* FirefoxBinary firefoxPath = new FirefoxBinary("C:\\program files\\Mozilla Firefox\\firefox.exe");
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            driver = new FirefoxDriver(firefoxPath, firefoxProfile);
 
+            driver.Navigate().GoToUrl(url);
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));*/
         }
 
         [TestMethod]
