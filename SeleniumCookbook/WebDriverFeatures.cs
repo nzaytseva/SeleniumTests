@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using System.Drawing;
+using System.Diagnostics;
+using OpenQA.Selenium.Interactions;
+
 namespace SeleniumCookbook
 {
     [TestClass]
@@ -24,7 +26,7 @@ namespace SeleniumCookbook
             FirefoxProfile firefoxProfile = new FirefoxProfile();
             _driver = new FirefoxDriver(path, firefoxProfile);
             _driver.Manage().Window.Maximize();
-            _driver.Navigate().GoToUrl(_url);     
+            _driver.Navigate().GoToUrl(_url);
         }
 
         [TestMethod]
@@ -39,10 +41,48 @@ namespace SeleniumCookbook
         [TestMethod]
         public void SwitchAmongWindows()
         {
-            string url = "http://klgw-019.corepartners.local:50102/client/#/";
-            string currentWindowHandle = _driver.CurrentWindowHandle;
-            
+            string searchStringId = "text";
+            string request = "газета онлайн";
+            string firstWindowHandle = _driver.CurrentWindowHandle;
+            FirefoxWebElement searchString = (FirefoxWebElement)_driver.FindElementById(searchStringId);
+            searchString.SendKeys(request + OpenQA.Selenium.Keys.Enter);
+
+            string linkText = "газета";
+            FirefoxWebElement link = (FirefoxWebElement)_driver.FindElementByPartialLinkText(linkText);
+            link.Click();
+
+            Debug.Print("{0} windows opened", _driver.WindowHandles.Count);
+
+            // Open the first window
+            _driver.SwitchTo().Window(firstWindowHandle);
         }
 
+        [TestMethod]
+        public void SwitchAmongFrames()
+        {
+            /*
+            Actions builder = new Actions(_driver);
+            builder
+                .KeyDown(OpenQA.Selenium.Keys.Control)
+                .SendKeys(ConsoleKey.N.ToString())
+                .KeyUp(OpenQA.Selenium.Keys.Control)
+                .Perform();
+            */
+
+            string searchStringId = "text";
+            string request = "газета онлайн";
+            string firstWindowHandle = _driver.CurrentWindowHandle;
+            FirefoxWebElement searchString = (FirefoxWebElement)_driver.FindElementById(searchStringId);
+            searchString.SendKeys(request + OpenQA.Selenium.Keys.Enter);
+
+            string linkText = "газета";
+            FirefoxWebElement link = (FirefoxWebElement)_driver.FindElementByPartialLinkText(linkText);
+            link.Click();
+
+            Debug.Print("{0} windows opened", _driver.WindowHandles.Count);
+
+            // Open the first window
+            _driver.SwitchTo().Window(firstWindowHandle);
+        }
     }
 }
