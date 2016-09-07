@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support;
+using OpenQA.Selenium.Support.Events;
 
 
 namespace SeleniumCookbook
@@ -21,13 +21,18 @@ namespace SeleniumCookbook
         {
             CookieInfo.PmxAuthorize("admin", "7777777");
 
-           /* FirefoxBinary firefoxPath = new FirefoxBinary("C:\\program files\\Mozilla Firefox\\firefox.exe");
-            FirefoxProfile firefoxProfile = new FirefoxProfile();
-            driver = new FirefoxDriver(firefoxPath, firefoxProfile);
+           // EventFiringWebDriver firingDriver = new EventFiringWebDriver(driver);
+           // firingDriver.ElementValueChanging += new EventHandler<WebElementEventArgs>(firingDriver_BeforeSendKeys);
 
-            driver.Navigate().GoToUrl(url);
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));*/
         }
+
+        /*
+        void firingDriver_BeforeSendKeys(object sender, WebDriverExceptionEventArgs e)
+        {
+            e.Driver.
+            // do action required to handle what happens after clicking button you have mentioned.
+        }
+        */
 
         [TestMethod]
         public void Test()
