@@ -5,6 +5,7 @@ using OpenQA.Selenium.Internal;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Security.AccessControl;
 
 namespace SeleniumCookbook
 {
@@ -35,11 +36,18 @@ namespace SeleniumCookbook
             driver.FindElementById("usernameField").SendKeys(login);
             driver.FindElementById("passwordField").SendKeys(password + OpenQA.Selenium.Keys.Enter);
 
+           // string currentDirectory = Directory.GetCurrentDirectory();
             WriteCookiesToFile(Directory.GetCurrentDirectory());
         }
 
         static void WriteCookiesToFile(string filePath)
         {
+            DirectorySecurity directorySecurity = new DirectorySecurity();
+            directorySecurity = Directory.GetAccessControl(filePath);
+            //directorySecurity.
+            
+
+            //попробовать открыть имеющийся файл на запись
             FileStream fileStream = File.Create(filePath);
             StreamWriter streamWriter = new StreamWriter(fileStream);
 
