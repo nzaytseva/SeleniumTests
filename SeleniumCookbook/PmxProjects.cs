@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-
+using System.Diagnostics;
 
 namespace SeleniumCookbook
 {
@@ -39,9 +39,22 @@ namespace SeleniumCookbook
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             // wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(OpenQA.Selenium.By.Id("usernameField")));
-            //  string cssSelector = "a[ng-href='#/projects/']";
-            string cssSelector = "a[href='#/projects/']";
-            driver.FindElementByCssSelector(cssSelector).Click();
+            string menuCssSelector = "div[class='list-group']";
+
+            try
+            {
+                FirefoxWebElement menu = (FirefoxWebElement)driver.FindElementByCssSelector(menuCssSelector);
+                string projectsCssSelector = "a[href='#/projects/']";
+              //  string projectsCssSelector = "a";
+                //string projectsCssSelector = "a[class='list-group-item.project-icon']";
+                FirefoxWebElement projects = (FirefoxWebElement)menu.FindElementByCssSelector(projectsCssSelector);
+                projects.Click();
+            }
+            catch (OpenQA.Selenium.NoSuchElementException message)
+            {
+                Debug.Print(message.Message);
+            }
+            
         }
 
     }
