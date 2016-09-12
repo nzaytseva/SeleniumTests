@@ -21,7 +21,7 @@ namespace SeleniumCookbook
             driver = new FirefoxDriver(firefoxPath, firefoxProfile);
         }
 
-        public static void PmxAuthorize(string login, string password)
+        public static FirefoxDriver PmxAuthorize(string login, string password)
         {
             InitializeDriver();
             driver.Navigate().GoToUrl(url);
@@ -36,9 +36,11 @@ namespace SeleniumCookbook
             driver.FindElementById("usernameField").SendKeys(login);
             driver.FindElementById("passwordField").SendKeys(password + OpenQA.Selenium.Keys.Enter);
 
+            return driver;
            // string currentDirectory = Directory.GetCurrentDirectory();
-            WriteCookiesToFile(Directory.GetCurrentDirectory());
+           // WriteCookiesToFile(Directory.GetCurrentDirectory());
         }
+
 
         static void WriteCookiesToFile(string filePath)
         {

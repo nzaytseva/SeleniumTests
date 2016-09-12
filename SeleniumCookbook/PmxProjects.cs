@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.Events;
+using OpenQA.Selenium.Support.UI;
 
 
 namespace SeleniumCookbook
@@ -19,8 +19,8 @@ namespace SeleniumCookbook
         [TestInitialize]
         public void GoToUrl()
         {
-            CookieInfo.PmxAuthorize("admin", "7777777");
-
+            driver = CookieInfo.PmxAuthorize("admin", "7777777");
+            driver.Manage().Window.Maximize();
            // EventFiringWebDriver firingDriver = new EventFiringWebDriver(driver);
            // firingDriver.ElementValueChanging += new EventHandler<WebElementEventArgs>(firingDriver_BeforeSendKeys);
 
@@ -35,8 +35,14 @@ namespace SeleniumCookbook
         */
 
         [TestMethod]
-        public void Test()
-        { }
+        public void OpenProjects()
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            // wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(OpenQA.Selenium.By.Id("usernameField")));
+            //  string cssSelector = "a[ng-href='#/projects/']";
+            string cssSelector = "a[href='#/projects/']";
+            driver.FindElementByCssSelector(cssSelector).Click();
+        }
 
     }
 }
