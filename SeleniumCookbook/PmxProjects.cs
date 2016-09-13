@@ -37,24 +37,19 @@ namespace SeleniumCookbook
         [TestMethod]
         public void OpenProjects()
         {
+            string projectsClassName = "project-icon";
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            // wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(OpenQA.Selenium.By.Id("usernameField")));
-            string menuCssSelector = "div[class='list-group']";
+            wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(OpenQA.Selenium.By.ClassName(projectsClassName)));
 
             try
             {
-                FirefoxWebElement menu = (FirefoxWebElement)driver.FindElementByCssSelector(menuCssSelector);
-                string projectsCssSelector = "a[href='#/projects/']";
-              //  string projectsCssSelector = "a";
-                //string projectsCssSelector = "a[class='list-group-item.project-icon']";
-                FirefoxWebElement projects = (FirefoxWebElement)menu.FindElementByCssSelector(projectsCssSelector);
+                FirefoxWebElement projects = (FirefoxWebElement)driver.FindElementByClassName(projectsClassName);
                 projects.Click();
             }
             catch (OpenQA.Selenium.NoSuchElementException message)
             {
                 Debug.Print(message.Message);
             }
-            
         }
 
     }
