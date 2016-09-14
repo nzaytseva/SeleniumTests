@@ -14,28 +14,33 @@ namespace SeleniumCookbook
     public class PmxProjects
     {
         FirefoxDriver driver;
-        string url = "http://klgw-019.corepartners.local:10022/client/#/auth/logon";
+        //string url = "http://klgw-019.corepartners.local:10022/client/#/auth/logon";
+        string locale;
 
         [TestInitialize]
         public void GoToUrl()
         {
             driver = CookieInfo.PmxAuthorize("admin", "7777777");
             driver.Manage().Window.Maximize();
-           // EventFiringWebDriver firingDriver = new EventFiringWebDriver(driver);
-           // firingDriver.ElementValueChanging += new EventHandler<WebElementEventArgs>(firingDriver_BeforeSendKeys);
+
+            //string script = "return $('.locale')";
+            //locale = driver.ExecuteAsyncScript(script, "http://klgw-019.corepartners.local:10022/client/#/").ToString();
+            //Debug.Print(locale);
+
 
         }
 
-        /*
-        void firingDriver_BeforeSendKeys(object sender, WebDriverExceptionEventArgs e)
-        {
-            e.Driver.
-            // do action required to handle what happens after clicking button you have mentioned.
-        }
-        */
 
         [TestMethod]
-        public void OpenProjects()
+        public void CreateProject()
+        {
+            OpenProjects();
+            OpenPojectCreationPage();
+          //  FillProjectFieldsCorrectly();
+           // SaveProject();
+        }
+
+        void OpenProjects()
         {
             string projectsClassName = "project-icon";
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
@@ -44,6 +49,10 @@ namespace SeleniumCookbook
             try
             {
                 FirefoxWebElement projects = (FirefoxWebElement)driver.FindElementByClassName(projectsClassName);
+                //if()
+                //Assert.AreEqual("Projects", projects);
+                //else
+                //    Assert.AreEqual("Проекты", projects);
                 projects.Click();
             }
             catch (OpenQA.Selenium.NoSuchElementException message)
@@ -52,5 +61,21 @@ namespace SeleniumCookbook
             }
         }
 
+        void OpenPojectCreationPage()
+        {
+            string buttonNewId = "pageHeaderActionsDropdown";
+            driver.FindElementById(buttonNewId).Click();
+
+            string buttonNewProjectCssSelector = "a[href='#/projects/create']";
+           // Assert.AreEqual("+ New Project", projects);
+            driver.FindElementByCssSelector(buttonNewProjectCssSelector).Click();
+
+        }
+
+        void FillProjectFieldsCorrectly()
+        { }
+
+        void SaveProject()
+        { }
     }
 }
