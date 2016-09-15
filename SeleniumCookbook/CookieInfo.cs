@@ -41,7 +41,36 @@ namespace SeleniumCookbook
            // WriteCookiesToFile(Directory.GetCurrentDirectory());
         }
 
+        public static string GetCurrentLocale()
+        {
+            // go to current user profile
+            driver.FindElementByClassName("profile-icon").Click();
 
+            // get locale value
+            SelectElement locale = new SelectElement(driver.FindElementByTagName("select"));
+            string resultValue = "";
+            string sourceValue = locale.SelectedOption.GetAttribute("value");
+            if (sourceValue.Equals("Русская") || sourceValue.Equals("Russian"))
+                resultValue = "ru";
+            else
+               if (sourceValue.Equals("Английская") || sourceValue.Equals("English"))
+                resultValue = "en";
+
+            return resultValue;
+        }
+        /*
+        public static string GetInterpretedLocale(string sourceValue)
+        {
+            string resultValue = "";
+            if (sourceValue.Equals("Русская") || sourceValue.Equals("Russian"))
+                resultValue = "ru";
+            else 
+                if (sourceValue.Equals("Английская") || sourceValue.Equals("English"))
+                resultValue = "en";
+
+            return resultValue;
+        }
+        */
         static void WriteCookiesToFile(string filePath)
         {
             DirectorySecurity directorySecurity = new DirectorySecurity();
@@ -52,7 +81,7 @@ namespace SeleniumCookbook
             //попробовать открыть имеющийся файл на запись
             FileStream fileStream = File.Create(filePath);
             StreamWriter streamWriter = new StreamWriter(fileStream);
-
+         
             foreach (var cookie in driver.Manage().Cookies.AllCookies)
             {
                 streamWriter.WriteLine(cookie.Name + ";" + cookie.Value + ";" + cookie.Domain +
