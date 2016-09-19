@@ -12,22 +12,23 @@ namespace SeleniumCookbook
     {
         FirefoxDriver driver;
         //string url = "http://klgw-019.corepartners.local:10022/client/#/auth/logon";
-        string locale;
+        //string locale;
 
         [TestInitialize]
         public void GoToUrl()
         {
             driver = CookieInfo.PmxAuthorize("admin", "7777777");
-            locale = CookieInfo.GetCurrentLocale();
+           // locale = CookieInfo.GetCurrentLocale();
             driver.Manage().Window.Maximize(); 
-            Debug.Print(locale);
+           // Debug.Print(locale);
         }
 
     [TestMethod]
         public void CreateProject()
         {
-            OpenProjects();
-            OpenPojectCreationPage();
+           // OpenProjects();
+           // OpenPojectCreationPage();
+
           //  FillRequiredProjectFieldsCorrectly();
            // SaveProject();
         }

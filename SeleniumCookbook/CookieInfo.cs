@@ -1,11 +1,13 @@
 ﻿using System;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Net;
 using OpenQA.Selenium.Internal;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Security.AccessControl;
+using System.Text;
 
 namespace SeleniumCookbook
 {
@@ -43,21 +45,55 @@ namespace SeleniumCookbook
 
         public static string GetCurrentLocale()
         {
-            // go to current user profile
-            driver.FindElementByClassName("profile-icon").Click();
+            string s = "gg";
+         //   PostHttp("http://klgw-019.corepartners.local:10002/api/token", "grant_type=password&username=LOCAL%3Aadmin&password=7777777");
+            return s;
 
-            // get locale value
-            SelectElement locale = new SelectElement(driver.FindElementByTagName("select"));
-            string resultValue = "";
-            string sourceValue = locale.SelectedOption.GetAttribute("value");
-            if (sourceValue.Equals("Русская") || sourceValue.Equals("Russian"))
-                resultValue = "ru";
-            else
-               if (sourceValue.Equals("Английская") || sourceValue.Equals("English"))
-                resultValue = "en";
+            /* 
+             // go to current user profile
+             driver.FindElementByClassName("profile-icon").Click();
 
-            return resultValue;
+             // get locale value
+             SelectElement locale = new SelectElement(driver.FindElementByTagName("select"));
+             string resultValue = "";
+             string sourceValue = locale.SelectedOption.GetAttribute("value");
+             if (sourceValue.Equals("Русская") || sourceValue.Equals("Russian"))
+                 resultValue = "ru";
+             else
+                if (sourceValue.Equals("Английская") || sourceValue.Equals("English"))
+                 resultValue = "en";
+
+             return resultValue;
+             */
         }
+
+        private static void PostHttp (string url, string data)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Method = "POST"; // выбираем метод запроса 
+            req.Accept = "text/plain, application/json, */*; ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3"; // добавляем заголовок и его значение
+           // req.CookieContainer = cookies; // прикрепляем к запросу куки
+            req.Headers.Add("DNT", "1");// добавляем заголовок и его значение
+            req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"; 
+            req.Referer = "http://klgw-019.corepartners.local:10002/client/"; // откуда мы пришли
+            req.ContentType = "application/x-www-form-urlencoded"; // определяет тип документа для ответа
+            using (var requestStream = req.GetRequestStream())//отправляем поток данных
+            using (var sw = new StreamWriter(requestStream)) //создаём переменную, в которой будет храниться запрос
+            {
+                //sw.Write(data);//записываем в поток данные
+            }
+
+            using (var responseStream = req.GetResponse().GetResponseStream())//возвращаем поток данных
+            using (var sr = new StreamReader(responseStream))//переменная, в которой будет храниться ответ
+            {
+                var result = sr.ReadToEnd(); //считывем ответ в переменную
+                using (var sw = new StreamWriter("page.html", false, Encoding.GetEncoding(1251)))//false значит? что файл будет перезаписываться каждый раз, и указываем кодировку ту что была на сайте
+                    sw.Write(result);//записываем
+            }
+        }
+
+
+
         /*
         public static string GetInterpretedLocale(string sourceValue)
         {
