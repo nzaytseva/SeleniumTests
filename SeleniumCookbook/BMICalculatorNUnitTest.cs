@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support;
@@ -44,7 +45,7 @@ namespace SeleniumCookbook
             driver.Quit();
         }
 
-        /*
+       /*
         private IEnumerable<string> BmiTestData
         {
             get { return GetBmiTestData(); }
